@@ -4,7 +4,9 @@ export default function Page() {
   return (
     <>
       <h1>About</h1>
-      <a href="/blog">Blog</a>
+      <div><a href="/">About</a></div>
+      <div><a href="/blog">Blog</a></div>
+      <div><a href="/blog/posts/ciao">Blog/Posts/Ciao</a></div>
     </>
   )
 }
