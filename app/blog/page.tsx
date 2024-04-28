@@ -3,8 +3,8 @@ import React from 'react'
 export default function Page() {
   return (
     <>
-      <h1>About</h1>
-      <a href="/blog">Blog</a>
+      <h1>Blog</h1>
+      <a href="/">About</a>
     </>
   )
 }
