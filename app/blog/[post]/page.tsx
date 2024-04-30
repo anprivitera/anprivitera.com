@@ -1,4 +1,5 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 
 type BlogPageProps = {
   params: { post: string }
@@ -12,10 +13,10 @@ export async function generateStaticParams() {
 }
 
 export default function BlogPage({ params }: BlogPageProps) {
-  const { post } = params
+  const BlogPost = dynamic(() => import(`@/content/posts/${params.post}.mdx`))
   return (
     <>
-      <h1>The post is { post }</h1>
+      <BlogPost />
     </>
   )
 }
