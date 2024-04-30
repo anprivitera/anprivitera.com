@@ -24,7 +24,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 const navItems = [
   {
     title: 'About',
-    href: '/about',
+    href: '/',
     icon: <PersonIcon />
   },
   {
