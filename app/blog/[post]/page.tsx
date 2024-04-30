@@ -1,6 +1,17 @@
 import React from 'react'
 
-export default function Page({ params }: { params: { post: string } }) {
+type BlogPageProps = {
+  params: { post: string }
+}
+
+export async function generateStaticParams() {
+  const blogPosts = ['2024-04-01-prova']
+  return blogPosts.map((post) => ({
+    post
+  }))
+}
+
+export default function BlogPage({ params }: BlogPageProps) {
   const { post } = params
   return (
     <>
