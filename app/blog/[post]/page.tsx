@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Metadata } from 'next'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import { getPostData } from './data'
+import { getPostData, getPostsSlugs } from './data'
 
 type BlogPageProps = {
   params: { post: string, metadata: Metadata}
@@ -21,8 +21,8 @@ export async function generateMetadata({
   return {}
 }
 
-export async function generateStaticParams() {
-  const blogPosts = ['2024-04-01-prova']
+export function generateStaticParams() {
+  const blogPosts = getPostsSlugs()
   return blogPosts.map((post) => ({
     post
   }))

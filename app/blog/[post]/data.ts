@@ -1,3 +1,5 @@
+import { readdirSync } from 'fs'
+
 /**
  * Import an mdx blog post file and return the metadata.
  * @param post
@@ -28,4 +30,18 @@ export async function getPostData(post: string): Promise<{
       series: ''
     }
   }
+}
+
+export function getPostsSlugs(): string[] {
+  try {
+    const fileList: string[] = readdirSync('./content/posts')
+    if (fileList.length > 0) {
+      return fileList.map((file) => file.substring(0, file.lastIndexOf('.')) || file
+      )
+    }
+  } catch (error) {
+    // Intentionally do nothing
+    // Add a comment to indicate that the catch block is empty
+  }
+  return []
 }
