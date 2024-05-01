@@ -1,9 +1,7 @@
-import React from 'react'
+import About from '@/content/about.mdx'
 
 export default function Page() {
   return (
-    <>
-      <h1>About</h1>
-    </>
+    <About />
   )
 }
