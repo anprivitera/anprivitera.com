@@ -1,8 +1,24 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import { Metadata } from 'next'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import LocalOfferIcon from '@mui/icons-material/LocalOffer'
+import { getPostData } from './data'
 
 type BlogPageProps = {
-  params: { post: string }
+  params: { post: string, metadata: Metadata}
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
+  const { title } = await getPostData(params.post)
+  if (title) {
+    return {
+      title: `${title} | Andrea Privitera`,
+    }
+  }
+  return {}
 }
 
 export async function generateStaticParams() {
@@ -12,11 +28,48 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function BlogPage({ params }: BlogPageProps) {
+export default async function BlogPage({ params }: BlogPageProps) {
   const BlogPost = dynamic(() => import(`@/content/posts/${params.post}.mdx`))
+  const metadata = await getPostData(params.post)
+  const { title, description, date, tags } = metadata
   return (
-    <>
+    <article>
+      <header style={{
+        // display: 'flex',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // flexWrap: 'wrap'
+      }}
+      >
+        <h1>{title}</h1>
+        <h2>{description}</h2>
+        <div className="meta"
+          style={{
+            // display: 'flex',
+            // alignItems: 'center',
+            // justifyContent: 'center',
+            // flexWrap: 'wrap'
+          }}
+        >
+          <CalendarMonthIcon />
+          {new Date(date).toISOString().split('T')[0]}{' '}
+          {tags.map((tag: string) => (
+            <span key={tag}
+              style={{
+                // marginLeft: '0.5rem',
+                // display: 'flex',
+                // alignItems: 'center',
+                // justifyContent: 'center',
+                // flexWrap: 'wrap'
+              }}
+            >
+              <LocalOfferIcon />
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
       <BlogPost />
-    </>
+    </article>
   )
 }
