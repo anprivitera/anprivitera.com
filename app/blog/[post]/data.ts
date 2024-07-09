@@ -5,6 +5,30 @@ import { readdirSync } from 'fs'
  * @param post
  * @returns
  */
+
+interface PostData {
+  title: string;
+  slug: string;
+  series: string | null;
+}
+
+async function filterSeriesPosts(fileList: string[], series: string) {
+  const checks = await Promise.all(
+    fileList.map(async (f) => {
+      const file = await import(`@/content/posts/${f}`)
+      return {
+        title: file.metadata.title,
+        slug: f.substring(0, f.lastIndexOf('.')) || f,
+        series: file.metadata.series === series ? series : null,
+      }
+    })
+  )
+
+  const filteredResults = checks.filter((f) => f.series !== null)
+
+  return filteredResults
+}
+
 export async function getPostData(post: string): Promise<{
   title: string
   description: string
@@ -44,4 +68,9 @@ export function getPostsSlugs(): string[] {
     // Add a comment to indicate that the catch block is empty
   }
   return []
+}
+
+export async function getSeriesPosts(series: string): Promise<PostData[]> {
+  const fileList: string[] = readdirSync('./content/posts')
+  return filterSeriesPosts(fileList, series)
 }

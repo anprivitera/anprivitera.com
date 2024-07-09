@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Metadata } from 'next'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import { getPostData, getPostsSlugs } from './data'
+import { getPostData, getPostsSlugs, getSeriesPosts } from './data'
 
 type BlogPageProps = {
   params: { post: string, metadata: Metadata}
@@ -31,7 +31,8 @@ export function generateStaticParams() {
 export default async function BlogPage({ params }: BlogPageProps) {
   const BlogPost = dynamic(() => import(`@/content/posts/${params.post}.mdx`))
   const metadata = await getPostData(params.post)
-  const { title, description, date, tags } = metadata
+  const { title, description, date, tags, series } = metadata
+  const seriesPosts = await getSeriesPosts(series)
   return (
     <article>
       <header style={{
@@ -69,6 +70,25 @@ export default async function BlogPage({ params }: BlogPageProps) {
           ))}
         </div>
       </header>
+      {metadata.series && (
+        <section>
+          <div className="series-box">This post is part of the {series} series.</div>
+          <div>Read other posts in the series:</div>
+          <ol>
+            {
+              seriesPosts.map(({ slug, title }) => (
+                <li key={slug}>
+                  {slug !== params.post ? (
+                    <a href={`/blog/${slug}`}>{title}</a>
+                  ) : (
+                    <b>{title}</b>
+                  )}
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+      )}
       <BlogPost />
     </article>
   )
