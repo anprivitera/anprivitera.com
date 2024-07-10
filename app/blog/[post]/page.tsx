@@ -1,9 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { Metadata } from 'next'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import LocalOfferIcon from '@mui/icons-material/LocalOffer'
+import {
+  Box, Card, CardContent, Chip, Divider, Link, Stack, Typography
+} from '@mui/material'
 import { getPostData, getPostsSlugs, getSeriesPosts } from './data'
+import '@/app/codeblock.css'
 
 type BlogPageProps = {
   params: { post: string, metadata: Metadata}
@@ -33,63 +35,53 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const metadata = await getPostData(params.post)
   const { title, description, date, tags, series } = metadata
   const seriesPosts = await getSeriesPosts(series)
+  const formattedDate = new Date(date).toLocaleDateString('en-US', { dateStyle: 'full' })
   return (
-    <article>
-      <header style={{
-        // display: 'flex',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // flexWrap: 'wrap'
-      }}
-      >
-        <h1>{title}</h1>
-        <h2>{description}</h2>
-        <div className="meta"
-          style={{
-            // display: 'flex',
-            // alignItems: 'center',
-            // justifyContent: 'center',
-            // flexWrap: 'wrap'
-          }}
-        >
-          <CalendarMonthIcon />
-          {new Date(date).toISOString().split('T')[0]}{' '}
-          {tags.map((tag: string) => (
-            <span key={tag}
-              style={{
-                // marginLeft: '0.5rem',
-                // display: 'flex',
-                // alignItems: 'center',
-                // justifyContent: 'center',
-                // flexWrap: 'wrap'
-              }}
-            >
-              <LocalOfferIcon />
-              {tag}
-            </span>
-          ))}
-        </div>
-      </header>
-      {metadata.series && (
-        <section>
-          <div className="series-box">This post is part of the {series} series.</div>
-          <div>Read other posts in the series:</div>
-          <ol>
-            {
-              seriesPosts.map(({ slug, title }) => (
-                <li key={slug}>
-                  {slug !== params.post ? (
-                    <a href={`/blog/${slug}`}>{title}</a>
-                  ) : (
-                    <b>{title}</b>
-                  )}
-                </li>
-              ))
-            }
-          </ol>
-        </section>
-      )}
-      <BlogPost />
-    </article>
+    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 680 }}>
+      <article>
+        <header>
+          <Typography sx={{ fontSize: '0.7em' }} align="center">
+            Written on <time>{formattedDate}</time>
+          </Typography>
+          <Typography variant="h1" align="center">
+            {title}
+          </Typography>
+          <Typography variant="subtitle1" align="center">
+            {description}
+          </Typography>
+          <Stack direction="row" spacing={1} justifyContent="center" sx={{ mt: 1.5 }}>
+            {tags.map((tag: string) => (
+              <Chip key={tag} label={tag} component="a" href="http://example.com" clickable />
+            ))}
+          </Stack>
+          <Divider sx={{ mt: 3, mb: 3 }} />
+          {metadata.series && (
+            <Card raised>
+              <CardContent>
+                <Typography align="center">
+                  This post is part of the <strong>{series}</strong> series.
+                  <br />
+                  Read other posts in the series:
+                </Typography>
+                <ol>
+                  {
+                    seriesPosts.map(({ slug, title }) => (
+                      <li key={slug}>
+                        {slug !== params.post ? (
+                          <Link href={`/blog/${slug}`} underline="none" color="secondary">{title}</Link>
+                        ) : (
+                          <strong>{title}</strong>
+                        )}
+                      </li>
+                    ))
+                  }
+                </ol>
+              </CardContent>
+            </Card>
+          )}
+        </header>
+        <BlogPost />
+      </article>
+    </Box>
   )
 }

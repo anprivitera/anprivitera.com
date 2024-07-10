@@ -1,10 +1,11 @@
+import { Box } from '@mui/material'
 import Blog from '@/content/blog.mdx'
 import { getPostTitlesandSlugs } from './data'
 
 export default async function Page() {
   const posts = await getPostTitlesandSlugs()
   return (
-    <>
+    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 680 }}>
       <Blog />
       {
         posts.map(({ title, slug }) => (
@@ -13,6 +14,6 @@ export default async function Page() {
           </div>
         ))
       }
-    </>
+    </Box>
   )
 }
