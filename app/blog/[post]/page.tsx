@@ -31,7 +31,7 @@ export function generateStaticParams() {
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
-  const BlogPost = dynamic(() => import(`@/content/posts/${params.post}.mdx`))
+  const BlogPost = dynamic(() => import(`@/public/posts/${params.post}.mdx`))
   const metadata = await getPostData(params.post)
   const { title, description, date, tags, series } = metadata
   const seriesPosts = await getSeriesPosts(series)
