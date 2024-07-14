@@ -1,7 +1,12 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import Navbar from './navbar'
+import Footer from './footer'
+import './global.scss'
+import Theme from './theme'
+import '@fontsource/rubik'
+import '@fontsource/fira-mono'
+import '@fontsource/karla'
 
 export const metadata: Metadata = {
   title: 'Andrea Privitera',
@@ -14,13 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <AppRouterCacheProvider>
+    <Theme>
+      <html lang="en">
+        <body suppressHydrationWarning>
           <Navbar />
           {children}
-        </AppRouterCacheProvider>
-      </body>
-    </html>
+          <Footer />
+        </body>
+      </html>
+    </Theme>
   )
 }
