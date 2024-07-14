@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import About from '@/content/about.mdx'
+import About from '@/blog-content/about.mdx'
 
 export default function Page() {
   return (
