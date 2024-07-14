@@ -68,9 +68,18 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     seriesPosts.map(({ slug, title }) => (
                       <li key={slug}>
                         {slug !== params.post ? (
-                          <Link href={`/blog/${slug}`} underline="none" color="secondary">{title}</Link>
+                          <Link
+                            href={`/blog/${slug}`}
+                            underline="none"
+                            color="secondary"
+                            sx={{ fontWeight: 700 }}
+                          >
+                            {title}
+                          </Link>
                         ) : (
-                          <strong>{title}</strong>
+                          <Typography component="span">
+                            {title}
+                          </Typography>
                         )}
                       </li>
                     ))
