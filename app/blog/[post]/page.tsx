@@ -46,7 +46,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
           <Typography variant="h1" align="center">
             {title}
           </Typography>
-          <Typography variant="subtitle1" align="center">
+          <Typography variant="subtitle1" component="p" align="center">
             {description}
           </Typography>
           <Stack direction="row" spacing={1} justifyContent="center" sx={{ mt: 1.5 }}>
