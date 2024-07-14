@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import Blog from '@/content/blog.mdx'
+import Blog from '@/public/blog.mdx'
 import { getPostTitlesandSlugs } from './data'
 
 export default async function Page() {

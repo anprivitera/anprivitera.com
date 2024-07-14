@@ -15,7 +15,7 @@ interface PostData {
 async function filterSeriesPosts(fileList: string[], series: string) {
   const checks = await Promise.all(
     fileList.map(async (f) => {
-      const file = await import(`@/content/posts/${f}`)
+      const file = await import(`@/public/posts/${f}`)
       return {
         title: file.metadata.title,
         slug: f.substring(0, f.lastIndexOf('.')) || f,
@@ -38,7 +38,7 @@ export async function getPostData(post: string): Promise<{
 }> {
   // Lazy load the mdx file for the project
   try {
-    const file = await import(`@/content/posts/${post}.mdx`)
+    const file = await import(`@/public/posts/${post}.mdx`)
 
     if (file?.metadata) return file.metadata
 
@@ -58,7 +58,7 @@ export async function getPostData(post: string): Promise<{
 
 export function getPostsSlugs(): string[] {
   try {
-    const fileList: string[] = readdirSync('./content/posts')
+    const fileList: string[] = readdirSync('./public/posts')
     if (fileList.length > 0) {
       return fileList.map((file) => file.substring(0, file.lastIndexOf('.')) || file
       )
@@ -71,6 +71,6 @@ export function getPostsSlugs(): string[] {
 }
 
 export async function getSeriesPosts(series: string): Promise<PostData[]> {
-  const fileList: string[] = readdirSync('./content/posts')
+  const fileList: string[] = readdirSync('./public/posts')
   return filterSeriesPosts(fileList, series)
 }
