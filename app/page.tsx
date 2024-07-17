@@ -3,7 +3,7 @@ import About from '@/public/about.mdx'
 
 export default function Page() {
   return (
-    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 680 }}>
+    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 850 }}>
       <About />
     </Box>
   )

@@ -5,7 +5,7 @@ import { getPostTitlesandSlugs } from './data'
 export default async function Page() {
   const posts = await getPostTitlesandSlugs()
   return (
-    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 680 }}>
+    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 850 }}>
       <Blog />
       {
         posts.map(({ title, slug }) => (
