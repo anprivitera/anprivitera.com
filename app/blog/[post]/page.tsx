@@ -55,7 +55,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             ))}
           </Stack>
           <Divider sx={{ mt: 3, mb: 3 }} />
-          {metadata.series && (
+          {metadata.series && seriesPosts.length > 1 && (
             <Card raised>
               <CardContent>
                 <Typography align="center">
