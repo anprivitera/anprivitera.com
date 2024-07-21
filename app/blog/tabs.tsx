@@ -4,7 +4,7 @@ import * as React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import PostsList from './list'
+import PostsList from '@/app/components/posts-list'
 
 interface TabPanelProps {
   children?: React.ReactNode;

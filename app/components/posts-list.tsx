@@ -1,5 +1,5 @@
 import { List } from '@mui/material'
-import PostListItem from './list-item'
+import PostListItem from './posts-list-item'
 
 type Post = {
   title: string
