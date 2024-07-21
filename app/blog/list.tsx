@@ -14,7 +14,6 @@ type PostsListProps = {
 export default function PostsList({ posts }: PostsListProps) {
   return (
     <>
-      <h1>Blog</h1>
       <List>
         {posts.map(
           ({ title, date, slug }) => (
