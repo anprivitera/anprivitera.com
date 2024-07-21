@@ -37,7 +37,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const seriesPosts = await getSeriesPosts(series)
   const formattedDate = new Date(date).toLocaleDateString('en-US', { dateStyle: 'full' })
   return (
-    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 680 }}>
+    <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 850 }}>
       <article>
         <header>
           <Typography sx={{ fontSize: '0.7em' }} align="center">
