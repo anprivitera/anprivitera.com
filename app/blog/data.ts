@@ -7,9 +7,12 @@ export async function getPostTitlesandSlugs() {
       const file = await import(`@/public/posts/${f}`)
       return {
         title: file.metadata.title,
-        slug: f.substring(0, f.lastIndexOf('.')) || f
+        slug: f.substring(0, f.lastIndexOf('.')) || f,
+        date: file.metadata.date
       }
     })
   )
-  return checks
+  return checks.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
 }
