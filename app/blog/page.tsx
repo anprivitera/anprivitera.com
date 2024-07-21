@@ -31,9 +31,16 @@ export default async function Page() {
                       key={slug}
                       component="a"
                       href={`/blog/${slug}`}
+                      sx={{
+                        '&:hover': {
+                          '.MuiTypography-root': {
+                            color: '#284178',
+                          }
+                        }
+                      }}
                     >
                       <ListItemText
-                        primary={<Typography variant="h6">{title}</Typography>}
+                        primary={<Typography variant="h6" sx={{ color: '#AF5D63' }}>{title}</Typography>}
                         secondary={<time>{formattedDate}</time>}
                       />
                     </ListItemButton>
