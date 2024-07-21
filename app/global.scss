@@ -7,20 +7,6 @@ $link-color-light: #AF5D63;
 $brand-color-light: #284178;
 $body-accent-bg-light: darken($body-bg-light, 7%);
 
-:root{
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: $body-bg-light;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #525252;
-    border-radius: 10px;
-  }
-}
-
 @mixin headings(){
   font-family: $base-heading-font;
 }
