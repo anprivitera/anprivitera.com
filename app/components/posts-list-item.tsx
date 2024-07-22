@@ -25,7 +25,7 @@ export default function PostListItem({ title, date, slug }: PostListItemProps) {
     >
       <ListItemText
         primary={
-          <Typography variant="h6" sx={{ color: '#AF5D63' }}>
+          <Typography sx={{ color: '#AF5D63' }}>
             {title}
           </Typography>
         }

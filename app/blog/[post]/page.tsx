@@ -51,7 +51,12 @@ export default async function BlogPage({ params }: BlogPageProps) {
           </Typography>
           <Stack direction="row" spacing={1} justifyContent="center" sx={{ mt: 1.5 }}>
             {tags.map((tag: string) => (
-              <Chip key={tag} label={tag} component="a" href="http://example.com" clickable />
+              <Chip key={tag}
+                label={tag}
+                component="a"
+                href={`/blog/tags/${tag}`}
+                clickable
+              />
             ))}
           </Stack>
           <Divider sx={{ mt: 3, mb: 3 }} />
