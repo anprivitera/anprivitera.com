@@ -67,7 +67,7 @@ function appBarItems (
 ) {
   const commonProps = {
     component: Link,
-    sx: { color: 'inherit' },
+    sx: { color: 'inherit', ':hover': { color: '#AF5D63' } },
   }
   return array.map(({ title, href, icon }) => (
     iconOnly ? (
@@ -108,14 +108,15 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
       <AppBar
         component="nav"
         position="static"
-        sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}
+        color="transparent"
+        sx={{ boxShadow: 'none' }}
       >
-        <Toolbar sx={{ color: 'black' }}>
+        <Toolbar sx={{ color: '#284178' }}>
           <Typography
             variant="h6"
             component="a"
             href="/"
-            sx={{ flexGrow: 1, color: 'inherit' }}
+            sx={{ flexGrow: 1, color: 'inherit', ':hover': { color: '#AF5D63' } }}
           >
             Andrea Privitera
           </Typography>
