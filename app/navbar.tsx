@@ -113,8 +113,9 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
         <Toolbar sx={{ color: 'black' }}>
           <Typography
             variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { sm: 'block' } }}
+            component="a"
+            href="/"
+            sx={{ flexGrow: 1, color: 'inherit' }}
           >
             Andrea Privitera
           </Typography>
