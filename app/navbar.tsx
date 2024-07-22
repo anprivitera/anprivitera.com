@@ -1,48 +1,35 @@
 'use client'
 
 import { useState, JSX } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import MenuIcon from '@mui/icons-material/Menu'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import PersonIcon from '@mui/icons-material/Person'
-import CreateIcon from '@mui/icons-material/Create'
+import {
+  AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton,
+  ListItemText, Toolbar, Typography, Button
+} from '@mui/material'
+import { Menu, Person, Create, GitHub, LinkedIn } from '@mui/icons-material'
 import Link from 'next/link'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
 
 const navItems = [
   {
     title: 'About',
     href: '/',
-    icon: <PersonIcon />
+    icon: <Person />
   },
   {
     title: 'Blog',
     href: '/blog',
-    icon: <CreateIcon />
+    icon: <Create />
   }
 ]
 const socialItems = [
   {
     title: 'GitHub',
     href: 'https://github.com/anprivitera',
-    icon: <GitHubIcon />
+    icon: <GitHub />
   },
   {
     title: 'LinkedIn',
     href: 'https://linkedin.com/in/andreaprivitera',
-    icon: <LinkedInIcon />
+    icon: <LinkedIn />
   },
 ]
 
@@ -68,7 +55,7 @@ function appBarItems (
 ) {
   const commonProps = {
     component: Link,
-    sx: { color: 'inherit' },
+    sx: { color: 'inherit', ':hover': { color: '#AF5D63' } },
   }
   return array.map(({ title, href, icon }) => (
     iconOnly ? (
@@ -105,55 +92,52 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
     window !== undefined ? () => window().document.body : undefined
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
-        component="nav"
-        position="static"
-        sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}
-      >
-        <Toolbar sx={{ color: 'black' }}>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { sm: 'block' } }}
-          >
-            Andrea Privitera
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-            {appBarItems(navItems, false)}
-            <Divider orientation="vertical" flexItem />
-            {appBarItems(socialItems, true)}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          anchor="right"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
-          }}
+    <AppBar
+      component="nav"
+      position="static"
+      color="transparent"
+      sx={{ boxShadow: 'none' }}
+    >
+      <Toolbar sx={{ color: '#284178' }}>
+        <Typography
+          variant="h6"
+          component="a"
+          href="/"
+          sx={{ flexGrow: 1, color: 'inherit', ':hover': { color: '#AF5D63' } }}
         >
-          {drawer}
-        </Drawer>
-      </nav>
-    </Box>
+          Andrea Privitera
+        </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2, display: { sm: 'none' } }}
+        >
+          <Menu />
+        </IconButton>
+        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          {appBarItems(navItems, false)}
+          <Divider orientation="vertical" flexItem />
+          {appBarItems(socialItems, true)}
+        </Box>
+      </Toolbar>
+      <Drawer
+        container={container}
+        variant="temporary"
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+        }}
+      >
+        {drawer}
+      </Drawer>
+    </AppBar>
   )
 }
