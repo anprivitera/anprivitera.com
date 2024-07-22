@@ -1,47 +1,35 @@
 'use client'
 
 import { useState, JSX } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import MenuIcon from '@mui/icons-material/Menu'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import PersonIcon from '@mui/icons-material/Person'
-import CreateIcon from '@mui/icons-material/Create'
+import {
+  AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton,
+  ListItemText, Toolbar, Typography, Button
+} from '@mui/material'
+import { Menu, Person, Create, GitHub, LinkedIn } from '@mui/icons-material'
 import Link from 'next/link'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
 
 const navItems = [
   {
     title: 'About',
     href: '/',
-    icon: <PersonIcon />
+    icon: <Person />
   },
   {
     title: 'Blog',
     href: '/blog',
-    icon: <CreateIcon />
+    icon: <Create />
   }
 ]
 const socialItems = [
   {
     title: 'GitHub',
     href: 'https://github.com/anprivitera',
-    icon: <GitHubIcon />
+    icon: <GitHub />
   },
   {
     title: 'LinkedIn',
     href: 'https://linkedin.com/in/andreaprivitera',
-    icon: <LinkedInIcon />
+    icon: <LinkedIn />
   },
 ]
 
@@ -127,7 +115,7 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
             {appBarItems(navItems, false)}
