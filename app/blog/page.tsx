@@ -1,10 +1,10 @@
 import { Box } from '@mui/material'
-import { getPostsMetadata } from './data'
+import { getPostsMetadata, getTags } from './data'
 import BlogTabs from './tabs'
 
 export default async function Page() {
   const posts = await getPostsMetadata()
-  const tags = ['nextjs', 'react']
+  const tags = await getTags()
 
   return (
     <Box sx={{ ml: 'auto', mr: 'auto', maxWidth: 850 }}>
