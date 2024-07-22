@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import PostsList from '@/app/components/posts-list'
+import TagsList from './tags-list'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -14,6 +15,7 @@ interface TabPanelProps {
 
 interface PostsListProps {
   posts: { title: string, date: string, slug: string }[]
+  tags: string[]
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -26,13 +28,14 @@ function CustomTabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      style={{ display: 'flex', justifyContent: 'center' }}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   )
 }
 
-export default function BlogTabs({ posts }: PostsListProps) {
+export default function BlogTabs({ posts, tags }: PostsListProps) {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -51,7 +54,7 @@ export default function BlogTabs({ posts }: PostsListProps) {
         <PostsList posts={posts} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Tags
+        <TagsList tags={tags} />
       </CustomTabPanel>
     </>
   )
