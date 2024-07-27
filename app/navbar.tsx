@@ -98,7 +98,7 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
       color="transparent"
       sx={{ boxShadow: 'none' }}
     >
-      <Toolbar sx={{ color: '#284178' }}>
+      <Toolbar sx={{ color: '#284178', p: 0 }}>
         <Typography
           variant="h6"
           component="a"
@@ -112,7 +112,7 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
           aria-label="open drawer"
           edge="end"
           onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: 'none' } }}
+          sx={{ display: { sm: 'none' } }}
         >
           <Menu />
         </IconButton>
