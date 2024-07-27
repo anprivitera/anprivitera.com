@@ -5,7 +5,9 @@ import {
   AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton,
   ListItemText, Toolbar, Typography, Button
 } from '@mui/material'
-import { Menu, Person, Create, GitHub, LinkedIn } from '@mui/icons-material'
+import {
+  Menu, Person, Create, GitHub, LinkedIn, RssFeed
+} from '@mui/icons-material'
 import Link from 'next/link'
 
 const navItems = [
@@ -30,6 +32,11 @@ const socialItems = [
     title: 'LinkedIn',
     href: 'https://linkedin.com/in/andreaprivitera',
     icon: <LinkedIn />
+  },
+  {
+    title: 'RSS Feed',
+    href: '/feed.xml',
+    icon: <RssFeed />
   },
 ]
 
