@@ -1,5 +1,11 @@
 import { readdirSync } from 'fs'
 
+interface Post {
+  title: string;
+  date: string;
+  slug: string;
+}
+
 export async function getTags () {
   const fileList = readdirSync('./public/posts')
   const tags: string[] = []
@@ -19,7 +25,7 @@ export async function getTags () {
   return tags
 }
 
-export async function getPostsByTag (tag: string) {
+export async function getPostsByTag (tag: string): Promise<Post[]> {
   const fileList = readdirSync('./public/posts')
   const posts = await Promise.all(
     fileList.map(async (f) => {
@@ -34,5 +40,5 @@ export async function getPostsByTag (tag: string) {
       return null
     })
   )
-  return posts.filter((post) => post !== null)
+  return posts.filter((post): post is Post  => post !== null)
 }
