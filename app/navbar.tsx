@@ -1,14 +1,16 @@
 'use client'
 
-import { useState, JSX } from 'react'
+import { useState, JSX, MouseEvent, useEffect } from 'react'
 import {
-  AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton,
-  ListItemText, Toolbar, Typography, Button
+  AppBar, Box, Divider, IconButton, Toolbar, Typography, Button, MenuItem,
+  Menu, ListItemIcon, ListItemText,
 } from '@mui/material'
 import {
-  Menu, Person, Create, GitHub, LinkedIn, RssFeed
+  Menu as MenuIcon, Person, Create, GitHub, LinkedIn, RssFeed
 } from '@mui/icons-material'
 import Link from 'next/link'
+
+const commonSxProps = { color: '#284178', ':hover': { color: '#AF5D63' } }
 
 const navItems = [
   {
@@ -40,20 +42,21 @@ const socialItems = [
   },
 ]
 
-function drawerItems (
+function menuItems (
   array: { title: string, href: string, icon: JSX.Element }[]
 ) {
   return array.map(({ title, href, icon }) => (
-    <ListItem key={title} disablePadding>
-      <ListItemButton
-        href={href}
-        component={Link}
-        sx={{ textAlign: 'center' }}
-      >
+    <MenuItem
+      key={title}
+      href={href}
+      component={Link}
+      sx={{ ...commonSxProps }}
+    >
+      <ListItemIcon sx={{ color: 'inherit' }}>
         {icon}
-        <ListItemText primary={title} />
-      </ListItemButton>
-    </ListItem>
+      </ListItemIcon>
+      <ListItemText primary={title} sx={{ color: 'inherit' }} />
+    </MenuItem>
   ))
 }
 
@@ -62,7 +65,7 @@ function appBarItems (
 ) {
   const commonProps = {
     component: Link,
-    sx: { color: 'inherit', ':hover': { color: '#AF5D63' } },
+    sx: { ...commonSxProps },
   }
   return array.map(({ title, href, icon }) => (
     iconOnly ? (
@@ -77,26 +80,21 @@ function appBarItems (
   ))
 }
 
-export default function DrawerAppBar(props: { window?: () => Window }) {
-  const { window } = props
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState)
+export default function DrawerAppBar() {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
   }
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <List>
-        {drawerItems(navItems)}
-        <Divider />
-        {drawerItems(socialItems)}
-      </List>
-    </Box>
-  )
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined
+  useEffect(() => {
+    const handleResize = () => handleClose()
+    window.addEventListener('resize', handleResize)
+    return () =>  window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <AppBar
@@ -110,41 +108,37 @@ export default function DrawerAppBar(props: { window?: () => Window }) {
           variant="h6"
           component="a"
           href="/"
-          sx={{ flexGrow: 1, color: 'inherit', ':hover': { color: '#AF5D63' } }}
+          sx={{ flexGrow: 1, ...commonSxProps }}
         >
           Andrea Privitera
         </Typography>
         <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="end"
-          onClick={handleDrawerToggle}
-          sx={{ display: { sm: 'none' } }}
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          sx={{ display: { sm: 'none' }, ...commonSxProps }}
         >
-          <Menu />
+          <MenuIcon />
         </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          sx={{ display: { xs: 'block', sm: 'none' } }}
+        >
+          {menuItems(navItems)}
+          <Divider />
+          {menuItems(socialItems)}
+        </Menu>
         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
           {appBarItems(navItems, false)}
           <Divider orientation="vertical" flexItem />
           {appBarItems(socialItems, true)}
         </Box>
       </Toolbar>
-      <Drawer
-        container={container}
-        variant="temporary"
-        anchor="right"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
-        }}
-      >
-        {drawer}
-      </Drawer>
     </AppBar>
   )
 }
