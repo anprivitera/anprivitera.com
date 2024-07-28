@@ -30,7 +30,7 @@ export default function AppBarWithMenu() {
 
   const commonSxProps = { color: '#284178', ':hover': { color: '#AF5D63' } }
 
-  const pathname = usePathname()
+  const pathName = usePathname()
   return (
     <AppBar
       component="nav"
@@ -64,12 +64,12 @@ export default function AppBarWithMenu() {
           onClose={handleClose}
           sx={{ display: { xs: 'block', sm: 'none' } }}
         >
-          {menuItems(internalLinks, commonSxProps, handleClose)}
+          {menuItems(internalLinks, commonSxProps, pathName, handleClose)}
           <Divider />
-          {menuItems(externalLinks, commonSxProps, handleClose)}
+          {menuItems(externalLinks, commonSxProps, null, handleClose)}
         </Menu>
         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          {appBarItems(internalLinks, false, pathname, commonSxProps)}
+          {appBarItems(internalLinks, false, pathName, commonSxProps)}
           <Divider orientation="vertical" flexItem />
           {appBarItems(externalLinks, true, null, commonSxProps)}
         </Box>

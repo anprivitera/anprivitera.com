@@ -5,6 +5,7 @@ import Link from 'next/link'
 export function menuItems (
   array: { title: string, href: string, icon: JSX.Element }[],
   commonSxProps: object,
+  currentPath: string | null,
   handleClose: () => void
 ) {
   return array.map(({ title, href, icon }) => (
@@ -14,6 +15,7 @@ export function menuItems (
       component={Link}
       sx={{ ...commonSxProps }}
       onClick={handleClose}
+      disabled={currentPath === href}
     >
       <ListItemIcon sx={{ color: 'inherit' }}>
         {icon}
