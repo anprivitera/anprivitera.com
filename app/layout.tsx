@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import Navbar from './navbar'
+import Navbar from './navbar/navbar'
 import Footer from './footer'
 import './global.scss'
 import Theme from './theme'
