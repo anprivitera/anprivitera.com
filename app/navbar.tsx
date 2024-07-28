@@ -11,84 +11,6 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const commonSxProps = { color: '#284178', ':hover': { color: '#AF5D63' } }
-
-const navItems = [
-  {
-    title: 'About',
-    href: '/',
-    icon: <Person />
-  },
-  {
-    title: 'Blog',
-    href: '/blog',
-    icon: <Create />
-  }
-]
-const socialItems = [
-  {
-    title: 'GitHub',
-    href: 'https://github.com/anprivitera',
-    icon: <GitHub />
-  },
-  {
-    title: 'LinkedIn',
-    href: 'https://linkedin.com/in/andreaprivitera',
-    icon: <LinkedIn />
-  },
-  {
-    title: 'RSS Feed',
-    href: '/feed.xml',
-    icon: <RssFeed />
-  },
-]
-
-function menuItems (
-  array: { title: string, href: string, icon: JSX.Element }[]
-) {
-  return array.map(({ title, href, icon }) => (
-    <MenuItem
-      key={title}
-      href={href}
-      component={Link}
-      sx={{ ...commonSxProps }}
-    >
-      <ListItemIcon sx={{ color: 'inherit' }}>
-        {icon}
-      </ListItemIcon>
-      <ListItemText primary={title} sx={{ color: 'inherit' }} />
-    </MenuItem>
-  ))
-}
-
-function appBarItems (
-  array: {
-    title: string, href: string, icon: JSX.Element
-  }[],
-  iconOnly: boolean,
-  currentPath: string | null
-) {
-  const commonProps = {
-    component: Link,
-    sx: { ...commonSxProps },
-  }
-  return array.map(({ title, href, icon }) => (
-    iconOnly ? (
-      <IconButton key={title} href={href} {...commonProps}>
-        {icon}
-      </IconButton>
-    ) : (
-      <Button key={title}
-        href={href}
-        {...commonProps}
-        disabled={currentPath === href}
-      >
-        {icon}{title}
-      </Button>
-    )
-  ))
-}
-
 export default function DrawerAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -104,6 +26,85 @@ export default function DrawerAppBar() {
     window.addEventListener('resize', handleResize)
     return () =>  window.removeEventListener('resize', handleResize)
   }, [])
+
+  const commonSxProps = { color: '#284178', ':hover': { color: '#AF5D63' } }
+
+  const navItems = [
+    {
+      title: 'About',
+      href: '/',
+      icon: <Person />
+    },
+    {
+      title: 'Blog',
+      href: '/blog',
+      icon: <Create />
+    }
+  ]
+  const socialItems = [
+    {
+      title: 'GitHub',
+      href: 'https://github.com/anprivitera',
+      icon: <GitHub />
+    },
+    {
+      title: 'LinkedIn',
+      href: 'https://linkedin.com/in/andreaprivitera',
+      icon: <LinkedIn />
+    },
+    {
+      title: 'RSS Feed',
+      href: '/feed.xml',
+      icon: <RssFeed />
+    },
+  ]
+
+  function menuItems (
+    array: { title: string, href: string, icon: JSX.Element }[]
+  ) {
+    return array.map(({ title, href, icon }) => (
+      <MenuItem
+        key={title}
+        href={href}
+        component={Link}
+        sx={{ ...commonSxProps }}
+        onClick={handleClose}
+      >
+        <ListItemIcon sx={{ color: 'inherit' }}>
+          {icon}
+        </ListItemIcon>
+        <ListItemText primary={title} sx={{ color: 'inherit' }} />
+      </MenuItem>
+    ))
+  }
+
+  function appBarItems (
+    array: {
+    title: string, href: string, icon: JSX.Element
+  }[],
+    iconOnly: boolean,
+    currentPath: string | null
+  ) {
+    const commonProps = {
+      component: Link,
+      sx: { ...commonSxProps },
+    }
+    return array.map(({ title, href, icon }) => (
+      iconOnly ? (
+        <IconButton key={title} href={href} {...commonProps}>
+          {icon}
+        </IconButton>
+      ) : (
+        <Button key={title}
+          href={href}
+          {...commonProps}
+          disabled={currentPath === href}
+        >
+          {icon}{title}
+        </Button>
+      )
+    ))
+  }
 
   const pathname = usePathname()
   return (
