@@ -1,7 +1,9 @@
 // https://www.davegray.codes/posts/nextjs-how-to-build-an-rss-feed
 import RSS from 'rss'
+import { getPostsMetadata } from '../components/data'
 
 export async function GET() {
+  const postsMetadata = await getPostsMetadata()
   const feed = new RSS({
     title: 'Andrea Privitera',
     description: 'Vancouver-based Full Stack Web Developer. I talk about Tech, Personal Knowledge Management, Obsidianmd, GTD and Tabletop Gaming',
@@ -13,6 +15,15 @@ export async function GET() {
     pubDate: new Date().toUTCString(),
     ttl: 60,
   })
+
+  postsMetadata.map(({ title, description, slug, date }) => (
+    feed.item({
+      title,
+      description,
+      url: `https://www.anprivitera.com/blog/${slug}`,
+      date: new Date(date).toUTCString()
+    })
+  ))
 
   return new Response(feed.xml({ indent: true }), {
     headers: {

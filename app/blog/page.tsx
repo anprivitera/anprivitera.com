@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
-import { getPostsMetadata, getTags } from './data'
+import { getTags } from './data'
 import BlogTabs from './tabs'
+import { getPostsMetadata } from '../components/data'
 
 export default async function Page() {
   const posts = await getPostsMetadata()
