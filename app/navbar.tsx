@@ -9,6 +9,7 @@ import {
   Menu as MenuIcon, Person, Create, GitHub, LinkedIn, RssFeed
 } from '@mui/icons-material'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const commonSxProps = { color: '#284178', ':hover': { color: '#AF5D63' } }
 
@@ -61,7 +62,11 @@ function menuItems (
 }
 
 function appBarItems (
-  array: { title: string, href: string, icon: JSX.Element }[], iconOnly: boolean
+  array: {
+    title: string, href: string, icon: JSX.Element
+  }[],
+  iconOnly: boolean,
+  currentPath: string | null
 ) {
   const commonProps = {
     component: Link,
@@ -73,7 +78,11 @@ function appBarItems (
         {icon}
       </IconButton>
     ) : (
-      <Button key={title} href={href} {...commonProps}>
+      <Button key={title}
+        href={href}
+        {...commonProps}
+        disabled={currentPath === href}
+      >
         {icon}{title}
       </Button>
     )
@@ -96,6 +105,7 @@ export default function DrawerAppBar() {
     return () =>  window.removeEventListener('resize', handleResize)
   }, [])
 
+  const pathname = usePathname()
   return (
     <AppBar
       component="nav"
@@ -134,9 +144,9 @@ export default function DrawerAppBar() {
           {menuItems(socialItems)}
         </Menu>
         <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-          {appBarItems(navItems, false)}
+          {appBarItems(navItems, false, pathname)}
           <Divider orientation="vertical" flexItem />
-          {appBarItems(socialItems, true)}
+          {appBarItems(socialItems, true, null)}
         </Box>
       </Toolbar>
     </AppBar>
