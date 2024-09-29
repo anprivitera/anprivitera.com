@@ -1,44 +1,39 @@
 import { readdirSync } from 'fs'
 
-interface Post {
-  title: string;
-  date: string;
-  slug: string;
-}
+async function getPosts() {
+  const files = readdirSync('./public/posts')
 
-export async function getTags () {
-  const fileList = readdirSync('./public/posts')
-  const tags: string[] = []
-  const checks = await Promise.all(
-    fileList.map(async (f) => {
-      const file = await import(`@/public/posts/${f}`)
-      return file.metadata.tags
+  const posts = await Promise.all(
+    files.map(async (f) => {
+      const post = await import(`@/public/posts/${f}`)
+      return { slug: f, post }
     })
   )
-  checks.forEach((tagList) => {
-    tagList.forEach((tag: string) => {
-      if (!tags.includes(tag)) {
-        tags.push(tag)
-      }
-    })
+
+  return posts
+}
+
+export async function getTags() {
+  const posts = await getPosts()
+
+  const tags: string[] = []
+  posts.forEach(({ post }) => {
+    post.metadata.tags.forEach((tag: string) => (
+      !tags.includes(tag) && tags.push(tag)
+    ))
   })
+
   return tags
 }
 
-export async function getPostsByTag (tag: string): Promise<Post[]> {
-  const fileList = readdirSync('./public/posts')
-  const posts = await Promise.all(
-    fileList.map(async (f) => {
-      const file = await import(`@/public/posts/${f}`)
-      if (file.metadata.tags.includes(tag)) {
-        return {
-          title: file.metadata.title,
-          date: file.metadata.date,
-          slug: f.substring(0, f.lastIndexOf('.')) || f
-        }
-      }
-      return null
-    })
-  )
-  return posts.filter((post): post is Post  => post !== null)
+export async function getPostsByTag (tag:string) {
+  const posts = await getPosts()
+
+  return posts.filter(({ post }) => (
+    post.metadata.tags.includes(tag)
+  )).map(({ post, slug }) => {
+    const { metadata } = post
+    const { title, date } = metadata
+    return { title, date, slug: slug.substring(0, slug.lastIndexOf('.')) || slug }
+  })
 }
