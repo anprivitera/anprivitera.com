@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Head from "../components/Head.astro";
+import DateComponent from "../components/FormattedDate.astro";
 
 export const publishedPosts = (
 		await getCollection('blog', ({ data }) => {
@@ -23,7 +24,7 @@ export const publishedPosts = (
 						publishedPosts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									{post.data.title} - {post.data.pubDate}
+									<DateComponent date={post.data.pubDate} /> - {post.data.title}
 								</a>
 							</li>
 						))

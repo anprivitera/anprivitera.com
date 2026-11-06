@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Head from '../../components/Head.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -44,7 +45,14 @@ const { Content } = await render(post);
 				<div class="prose">
 					<div class="title">
 						<div class="date">
-							| {pubDate} | {updatedDate ?? ""}
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last updated on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
 						</div>
 						<h1>{title}</h1>
 					</div>
