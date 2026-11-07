@@ -9,11 +9,21 @@
     "dev": "astro dev",
     "dev:sample": "BLOG_CONTENT_DIR=./src/content-sample astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "build:sample": "BLOG_CONTENT_DIR=./src/content-sample astro build",
+    "preview": "npm run build && wrangler dev",
+    "preview:sample": "npm run build:sample && wrangler dev",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^7.4.7",
     "simpledotcss": "^2.3.7"
+  },
+  "devDependencies": {
+    "wrangler": "^4.158.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261104.1": true,
+    "fsevents@2.3.3": true
   }
 }
