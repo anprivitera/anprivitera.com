@@ -21,31 +21,30 @@ export const publishedPosts = (
 	<head>
 		 <Head />
 	</head>
-	<header>
-		<Header title="Andrea's Digital Garden" />
-	</header>
 	<body>
-			<main>
-				<aside class="notice h-card">
-					<Image class="u-photo" src={andrea} alt="Andrea's profile picture" width="150" />
-					<p>Hi! I'm <a href="https://anprivitera.com" class="p-name u-url u-uid" rel="me">Andrea Privitera</a> (<span class="p-pronoun">he</span>/<span class="p-pronoun">him</span>), and this is my little corner of the web.</p>
-					<p class="p-note">Here I write about media, politics, and tech (particularly selfhosting and the IndieWeb).</p>
-					<p>You can find me also on <a href="https://github.com/anprivitera" rel="me">GitHub</a>.</p>
-				</aside>
-				<nav>
-					<h2>Blog Posts</h2>
-					<ul>
-						{
-							publishedPosts.map((post) => (
-								<li>
-									<a href={`/blog/${post.id}/`}>
-										<DateComponent date={post.data.pubDate} /> - {post.data.title}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</nav>
-			</main>
+		<Header />
+		<main>
+			<section class="h-card">
+				<h1>Welcome!</h1>
+				<Image class="u-photo" src={andrea} alt="Andrea's profile picture" width="150" />
+				<p>Hi! I'm <a href="https://anprivitera.com" class="p-name u-url u-uid" rel="me">Andrea Privitera</a> (<span class="p-pronoun">he</span>/<span class="p-pronoun">him</span>), and this is my little corner of the web.</p>
+				<p class="p-note">Here I write about media, politics, and tech (particularly selfhosting and the IndieWeb).</p>
+				<p>You can find me also on <a href="https://github.com/anprivitera" rel="me">GitHub</a>.</p>
+			</section>
+			<nav>
+				<h2>Blog Posts</h2>
+				<ul>
+					{
+						publishedPosts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									<DateComponent date={post.data.pubDate} /> - {post.data.title}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</main>
 	</body>
 </html>
