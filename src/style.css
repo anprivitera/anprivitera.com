@@ -1,1 +1,21 @@
 @import 'simpledotcss/simple.min.css';
+
+body header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+body header a {
+  text-decoration: none;
+}
+
+body header a:hover {
+  text-decoration: underline dotted;
+}
+
+
+
