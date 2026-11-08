@@ -3,9 +3,7 @@ import { getCollection } from "astro:content";
 import DateComponent from "../components/FormattedDate.astro";
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
-
-import { Image } from 'astro:assets';
-import andrea from '../content/imgs/andrea.webp';
+import HCard from "../components/HCard.astro";
 
 export const publishedPosts = (
 		await getCollection('blog', ({ data }) => {
@@ -24,13 +22,8 @@ export const publishedPosts = (
 	<body>
 		<Header />
 		<main>
-			<section class="h-card">
-				<h1>Welcome!</h1>
-				<Image class="u-photo" src={andrea} alt="Andrea's profile picture" width="150" />
-				<p>Hi! I'm <a href="https://anprivitera.com" class="p-name u-url u-uid" rel="me">Andrea Privitera</a> (<span class="p-pronoun">he</span>/<span class="p-pronoun">him</span>), and this is my little corner of the web.</p>
-				<p class="p-note">Here I write about media, politics, and tech (particularly selfhosting and the IndieWeb).</p>
-				<p>You can find me also on <a href="https://github.com/anprivitera" rel="me">GitHub</a>.</p>
-			</section>
+			<h1>Welcome!</h1>
+			<HCard />
 			<nav>
 				<h2>Blog Posts</h2>
 				<ul>
