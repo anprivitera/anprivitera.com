@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
-import Head from '../../components/Head.astro';
-import Header from '../../components/Header.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 export async function getStaticPaths() {
@@ -26,17 +25,11 @@ if (draft === true || new Date(post.data.pubDate) >= new Date()) {
 const { Content } = await render(post);
 ---
 
-<html lang="en">
-	<head>
-        <Head />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<article>
-				<h1>{title}</h1>
-				<div class="hero-image">
-					{
+<BaseLayout title={title}>
+	<article>
+		<h1>{title}</h1>
+		<div class="hero-image">
+			{
                         heroImage && <Image 
                             width={600} 
                             height={400} 
@@ -44,24 +37,22 @@ const { Content } = await render(post);
                             alt="" 
                         />
                     }
+		</div>
+		<div class="prose">
+			<div class="title">
+				<div class="date">
+					<FormattedDate date={pubDate} />
+					{
+						updatedDate && (
+							<div class="last-updated-on">
+								Last updated on <FormattedDate date={updatedDate} />
+							</div>
+						)
+					}
 				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-					</div>
+			</div>
                      <Content />
-				</div>
-			</article>
-		</main>
-	</body>
-</html>
+		</div>
+	</article>
+</BaseLayout>
 
