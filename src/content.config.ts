@@ -2,10 +2,9 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const contentDir = process.env.BLOG_CONTENT_DIR ?? './src/content/blog';
+const contentDir = `${process.env.SAMPLE_CONTENT_DIR ?? './src/content'}/blog`
 
 const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
 	loader: glob({ base: contentDir, pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>

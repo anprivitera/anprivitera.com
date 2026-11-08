@@ -7,9 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "dev:sample": "BLOG_CONTENT_DIR=./src/content-sample astro dev",
+    "dev:sample": "SAMPLE_CONTENT_DIR=./src/content-sample astro dev",
     "build": "astro build",
-    "build:sample": "BLOG_CONTENT_DIR=./src/content-sample astro build",
+    "build:sample": "SAMPLE_CONTENT_DIR=./src/content-sample astro build",
     "preview": "npm run build && wrangler dev",
     "preview:sample": "npm run build:sample && wrangler dev",
     "astro": "astro"
