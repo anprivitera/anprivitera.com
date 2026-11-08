@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import Head from "../components/Head.astro";
 import DateComponent from "../components/FormattedDate.astro";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+
 import { Image } from 'astro:assets';
 import andrea from '../content/imgs/andrea.webp';
 
@@ -19,8 +21,10 @@ export const publishedPosts = (
 	<head>
 		 <Head />
 	</head>
+	<header>
+		<Header title="Andrea's Digital Garden" />
+	</header>
 	<body>
-		<h1>Andrea's Digital Garden</h1>
 			<main>
 				<aside class="notice h-card">
 					<Image class="u-photo" src={andrea} alt="Andrea's profile picture" width="150" />

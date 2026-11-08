@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Head from '../../components/Head.astro';
+import Header from '../../components/Header.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 export async function getStaticPaths() {
@@ -29,6 +30,9 @@ const { Content } = await render(post);
 	<head>
         <Head />
 	</head>
+	<header>
+		<Header title={title} />
+	</header>
 	<body>
 		<main>
 			<article>
@@ -54,7 +58,6 @@ const { Content } = await render(post);
 								)
 							}
 						</div>
-						<h1>{title}</h1>
 					</div>
                      <Content />
 				</div>
