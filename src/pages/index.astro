@@ -18,17 +18,17 @@ export const publishedPosts = (
 		 <Head />
 	</head>
 	<body>
-		<h1>Astro</h1>
-				<ul>
-					{
-						publishedPosts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<DateComponent date={post.data.pubDate} /> - {post.data.title}
-								</a>
-							</li>
-						))
-					}
-				</ul>
+		<h1>Andrea's Digital Garden</h1>
+			<ul>
+				{
+					publishedPosts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<DateComponent date={post.data.pubDate} /> - {post.data.title}
+							</a>
+						</li>
+					))
+				}
+			</ul>
 	</body>
 </html>
