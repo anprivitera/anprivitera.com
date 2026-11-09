@@ -1,0 +1,10 @@
+---
+import { Image } from "astro:assets";
+import profilepic from '@content/imgs/profilepic.webp';
+import Profile from '@content/pages/Profile.astro';
+---
+
+<section class="h-card">
+    <Image class="u-photo" src={profilepic} alt="Profile picture" width="150" />
+    <Profile />
+</section>

@@ -1,12 +1,13 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-
-const contentDir = process.env.BLOG_CONTENT_DIR ?? './src/content/blog';
+import { contentDir } from './consts';
 
 const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: contentDir, pattern: '**/*.{md,mdx}' }),
+	// Not using alias from /astro.config.mjs because glob loader does not
+	// accept a module specifier, but only a string or URL
+	// https://docs.astro.build/en/reference/content-loader-reference/#base
+	loader: glob({ base: `${contentDir}/blog`, pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
 		z.object({

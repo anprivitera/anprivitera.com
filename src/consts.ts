@@ -1,0 +1,1 @@
+export const contentDir = process.env.SAMPLE_CONTENT_DIR ?? './src/content'
