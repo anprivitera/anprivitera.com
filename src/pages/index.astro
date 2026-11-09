@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import DateComponent from "../components/FormattedDate.astro";
-import Head from "../components/Head.astro";
-import Header from "../components/Header.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import HCard from "../components/HCard.astro";
 
 export const publishedPosts = (
@@ -15,29 +14,21 @@ export const publishedPosts = (
 	);
 ---
 
-<html lang="en">
-	<head>
-		 <Head />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Welcome!</h1>
-			<HCard />
-			<nav>
-				<h2>Blog Posts</h2>
-				<ul>
-					{
-						publishedPosts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<DateComponent date={post.data.pubDate} /> - {post.data.title}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
-		</main>
-	</body>
-</html>
+<BaseLayout>
+	<h1>Welcome!</h1>
+	<HCard />
+	<nav>
+		<h2>Blog Posts</h2>
+		<ul>
+			{
+				publishedPosts.map((post) => (
+					<li>
+						<a href={`/blog/${post.id}/`}>
+							<DateComponent date={post.data.pubDate} /> - {post.data.title}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</BaseLayout>
